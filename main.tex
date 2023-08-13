@@ -1,0 +1,428 @@
+%%
+%% Copyright 2020 OXFORD UNIVERSITY PRESS
+%%
+%% This file is part of the 'oup-authoring-template Bundle'.
+%% ---------------------------------------------
+%%
+%% It may be distributed under the conditions of the LaTeX Project Public
+%% License, either version 1.2 of this license or (at your option) any
+%% later version.  The latest version of this license is in
+%%    http://www.latex-project.org/lppl.txt
+%% and version 1.2 or later is part of all distributions of LaTeX
+%% version 1999/12/01 or later.
+%%
+%% The list of all files belonging to the 'oup-authoring-template Bundle' is
+%% given in the file `manifest.txt'.
+%%
+%% Template article for OXFORD UNIVERSITY PRESS's document class `oup-authoring-template'
+%% with bibliographic references
+%%
+
+%%%CONTEMPORARY%%%
+\documentclass[]{article}%
+%\documentclass[unnumsec,webpdf,contemporary,large,namedate]{oup-authoring-template}% uncomment this line for author year citations and comment the above
+%\documentclass[unnumsec,webpdf,contemporary,medium]{oup-authoring-template}
+%\documentclass[unnumsec,webpdf,contemporary,small]{oup-authoring-template}
+
+%%%MODERN%%%
+%\documentclass[unnumsec,webpdf,modern,large]{oup-authoring-template}
+%\documentclass[unnumsec,webpdf,modern,large,namedate]{oup-authoring-template}% uncomment this line for author year citations and comment the above
+%\documentclass[unnumsec,webpdf,modern,medium]{oup-authoring-template}
+%\documentclass[unnumsec,webpdf,modern,small]{oup-authoring-template}
+
+%%%TRADITIONAL%%%
+%\documentclass[unnumsec,webpdf,traditional,large]{oup-authoring-template}
+%\documentclass[unnumsec,webpdf,traditional,large,namedate]{oup-authoring-template}% uncomment this line for author year citations and comment the above
+%\documentclass[unnumsec,namedate,webpdf,traditional,medium]{oup-authoring-template}
+%\documentclass[namedate,webpdf,traditional,small]{oup-authoring-template}
+
+%\onecolumn % for one column layouts
+
+%\usepackage{showframe}
+% \graphicspath{{Fig/}}
+
+% line numbers
+%\usepackage[mathlines, switch]{lineno}
+%\usepackage[right]{lineno}
+
+% \theoremstyle{thmstyleone}%
+\newtheorem{theorem}{Theorem}%  meant for continuous numbers
+%%\newtheorem{theorem}{Theorem}[section]% meant for sectionwise numbers
+%% optional argument [theorem] produces theorem numbering sequence instead of independent numbers for Proposition
+\newtheorem{proposition}[theorem]{Proposition}%
+%%\newtheorem{proposition}{Proposition}% to get separate numbers for theorem and proposition etc.
+% \theoremstyle{thmstyletwo}%
+% \newtheorem{example}{Example}%
+% \newtheorem{remark}{Remark}%
+% \theoremstyle{thmstylethree}%
+% \newtheorem{definition}{Definition}
+
+%% Noah added this:
+\usepackage{xparse}
+
+% \newsavebox{\fminipagebox}
+% \NewDocumentEnvironment{fminipage}{m O{\fboxsep}}
+%  {\par\kern#2\noindent\begin{lrbox}{\fminipagebox}
+%   \begin{minipage}{#1}\ignorespaces}
+%  {\end{minipage}\end{lrbox}%
+%   \makebox[#1]{%
+%     \kern\dimexpr-\fboxsep-\fboxrule\relax
+%     \fbox{\usebox{\fminipagebox}}%
+%     \kern\dimexpr-\fboxsep-\fboxrule\relax
+%   }\par\kern#2
+%  }
+
+%% Andrew added this, for discussion later.
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+    pdftitle={Overleaf Example},
+    pdfpagemode=FullScreen,
+    }
+
+%%% POLINA-ADDED COMMANDS/PACKAGES
+% We should remove these before submission!!
+\newcommand{\an}[1]{{\color{red} \em #1}}
+\usepackage{soul}
+
+
+% Author info
+\title{Context-Sensitive Editing for the MEDFORD Metadata Language}
+\author{Andrew Powers$^1$ \and Liam Strand$^2$ \and Polina Shpilker$^2$ \and Lenore Cowen$^2$ \and Alva Couch \and Noah M. Daniels$^1$\thanks{Corresponding Author, \href{email:noah_daniels@uri.edu}{noah\_daniels@uri.edu}}}
+
+\date{
+	$^1$Department of Computer Science and Statistics, University of Rhode Island, 9 Greenhouse Rd, Kingston, RI 02881, USA\\%
+	$^2$Department of Computer Science, Tufts University, 177 College Ave, Medford MA 02155, USA%
+%	\today
+}
+
+% \authormark{Powers, et al.}
+
+
+\begin{document}
+	\maketitle
+
+	\tableofcontents
+
+
+
+%\editor{Associate Editor: Name}
+
+%\abstract{
+%\textbf{Motivation:} .\\
+%\textbf{Results:} .\\
+%\textbf{Availability:} .\\
+%\textbf{Contact:} \href{name@bio.com}{name@bio.com}\\
+%\textbf{Supplementary information:} Supplementary data are available at \textit{Briefings in Bioinformatics}
+%online.}
+
+% \boxedtext{
+% \begin{itemize}
+% \item Key boxed text here.
+% \item Key boxed text here.
+% \item Key boxed text here.
+% \end{itemize}}
+
+
+\section{Introduction}
+% TODO add a little more lead-in, somewhat more brief than the intro to the previous paper
+The MEDFORD metadata description language is a tool that can be used to facilitate a flexible and standard-adhering method to writing for many databases. As of version 1.0, MEDFORD provides extensive support for the BagIt file system standard, allowing for a greater degree of user consistency and human readability when it comes to metadata. Learning to use the MEDFORD syntax is not a long or arduous task, and can greatly increase productivity if adopted in certain ways.
+
+% FIXME this feels a little informal for this early in the paper
+Publishing research data with adequately complete FAIR metadata can often be challenging for a variety of reasons.
+Legislative or requirement-based approaches without improving the available tools simply reduces the productivity of researchers.
+For most resesarch data, there is no reusability plan.
+
+% TODO elucidate reasons
+% FIXME too informal this early, too abrupt a switch.
+Working with metadata can oftentimes be a chore, thus the goal of MEDFORD is to make this process into something that should typically not require a lot of time in comparison to the usual methods of doing so. The typical workflow of MEDFORD revolves around having the data that needs to be described, and the writing a .mfd file using the MEDFORD syntax. Then, the file that was just written would be examined by the parser, and it would validate the file as well as translate that file into a Bag of the previously mentioned BagIt.
+
+It should also be noted that, as mentioned below in the "Getting Started" section that there exists a Visual Studio Code extension for writing .mfd files that will help greatly when writing them. It is free, and is also highly recommended as it will increase workflow drastically. Of course, nothing besides a text editor is needed to edit and write these files but it is something to keep in mind.
+
+% We'll be adding comments like this
+
+\section{Getting Started}
+
+% Workflow diagram - Distinguish between the format and the parser, also talk about BagIt
+% Change name, Getting Started? 
+% You don't "need" anything. Make sure to make this clear
+% Describe the workflow as well, how does a .mfd file fit into this whole 
+
+% Move to user manual, instead have a paragraph on the necessity of following this section in the manual.
+% Manual can have URLs and a doi, and we refer to it here.
+% "technical report" on arXiv
+
+% Tour of the concepts
+
+% I think that this section fits decently well. Minor edits needed potentially, but overall fits within the guide.
+
+In order to begin writing MEDFORD files, there are certain things that one should be aware of. The MEDFORD parser is written in Python. As a result, in order to successfully parse your \textbf{.mfd} files, you need to make sure that you have correctly installed Python. The following link provides detailed instruction on installing Python on a system.
+\begin{itemize}
+    \item \href{https://wiki.python.org/moin/BeginnersGuide/Download}{https://wiki.python.org/moin/BeginnersGuide/Download}
+\end{itemize}
+Also, the parser can be found on PyPi, and can be accessed by the following link. The parser is required in order to successfully parse your files, and must be installed if you wish to parse or validate your .mfd files. 
+\begin{itemize}
+    \item \href{https://pypi.org/project/medford/}{https://pypi.org/project/medford/}
+\end{itemize}
+As a side note, the parser is open source and can be forked freely from its Github repository, which can be found at this link:
+\begin{itemize}
+    \item \href{https://github.com/TuftsBCB/medford}{https://github.com/TuftsBCB/medford}
+\end{itemize}
+In addition to the above requirements, there currently exists editor support for Visual Studio Code. While not necessary to develop MEDFORD files, it offers things like auto completion, syntax validation, and error reporting. Visual Studio Code can be found at this link.
+\begin{itemize}
+    \item \href{https://code.visualstudio.com/download}{https://code.visualstudio.com/download}
+\end{itemize}
+
+From here, the MEDFORD extension can be found by accessing the Extension Marketplace and searching for the term "MEDFORD". After this, simply click the install button and the extension will become active. As steted above, this extension and Visual Studio Code are not required, but they will make the process of producing MEDFORD files much more streamlined and intuitive.
+
+\section{Writing a .mfd File}
+
+% Needs to be expanded with more practical examples I think, but not a bad start. Now that this is self-published, I think some visuals would help a lot as well. 
+
+For purposes of explanation, this tutorial will atttempt to create a .mfd file describing the MEDFORD: Paper. It is important to note that this particular example does not tackle how describing data packaged with information is handled. Further documentation regarding the subject, along with other important resources can be found after this section in the Addendum.
+
+
+The first thing to do when creating a MEDFORD file is to create a blank \textbf{.mfd} file. This can be done by simply creating a new text document and changing the extension from \textbf{.txt} to \textbf{.mfd}. Renaming an already existing \textbf{.txt} file will also work. A good practice is to make use of the \texttt{@MEDFORD} tag in order to describe what version of the software is being considered when writing the file. This is not needed as the parser will automatically add this if not included, but it may be helpful when reviewing the file in the future, or if other user's need to read your files.
+\begin{small}
+\begin{verbatim}
+    @MEDFORD
+    @MEDFORD-Version 1.0
+\end{verbatim}
+\end{small}
+When creating a MEDFORD file it is important to keep in mind that at its core, much of MEDFORD's use can be summarized as a metadata description tool. Comments that are unread or validated by the parser can be added by using the "\#" sign.
+
+\begin{small}
+\begin{verbatim}
+    # This is a comment...
+\end{verbatim}
+\end{small}
+
+Looking at the paper in question, perhaps a good next part to address would be to describe what can be seen. First, the \texttt{@Paper\_Primary} tag will be useful here, as it will indicate to the parser that the included paper is it's primary location. This topic is talked about more in depth on the section regarding data provenance tokens. 
+
+% How can I get this on one line? And without making it unnecessarily short?
+% expand the discussion of @Something-Note as a way to add a preserved note that is passed along by the medford parser, vs. a # comment which is (essentially) not compiled
+\begin{small}
+\begin{verbatim}
+    # This is a comment...
+    @Paper_Primary MEDFORD: ...
+    title continues here
+    @Paper_Primary-Link Link here
+\end{verbatim}
+\end{small}
+
+Essentially, these two lines indicate to MEDFORD what the paper's title is, and also provides a link to the paper. It is worth noting that text can continue to the next line with no problem, this is syntactically valid.
+
+After this, the next thing that should probably be added is the data regarding contributors. An example of this would look something like this at first. 
+\begin{small}
+\begin{verbatim}
+    @Contributor Polina Shpilker
+    @Contributor-Association Tufts University, C.S. Dept.
+    @Contributor-Role First Author
+    @Contributor-Email polina.shpilker@tufts.edu
+\end{verbatim}
+\end{small}
+Note that it is a good idea to refer to the documentation listed in the addendum, as it can show the possible minor tokens and their uses for any given token. The expanded out version of the contributor description would probably look something like this at first (Not including every author here for purposes of simplicity), however, note that there is a much cleaner and more efficient way to accomplish this, but for a start this will work fine:
+\begin{small}
+\begin{verbatim}
+    @Contributor Polina Shpilker
+    @Contributor-Association Tufts University,
+    Department of Computer Science
+    @Contributor-Role First Author
+    @Contributor-Email polina.shpilker@tufts.edu
+    
+    @Contributor Lenore Cowen
+    @Contributor-Association Tufts University,
+    Department of Computer Science
+    @Contributor-Role Co-Author
+    @Contributor-Email cowen@cs.tufts.edu
+    
+    @Contributor Noah Daniels
+    @Contributor-Association University of Rhode Island,
+    Department of Computer Science
+    @Contributor-Role Corresponding Author
+    @Contributor-Email noah_daniels@uri.edu
+    
+\end{verbatim}
+\end{small}
+This would work, however,  it is possible to make things much easier to write and far more scalable by using the macro system built into Medford. In this case, what if there was another contributor from the University of Rhode Island Computer Science Department? It would be possible to simply copy and paste the previously written text, but a macro would allow substituting all of the text for a much shorter string. Macros are defined by doing the following:
+
+% Show the none curly brace version first and then show how you might need the curly versoin
+\begin{small}
+\begin{verbatim}
+    `@MyMacro John Smith
+    @Contributor `@{MyMacro}
+\end{verbatim}
+\end{small}
+By defining the macro in the first line, anytime it is referenced later on in the file the parser will interpret it as the text that was defined in that line. Changing the file to make use of this helpful property would create something that is much nicer to look at. Now, the contributor section of the file would look like this. It is much easier to see how this could be scaled further in the future. Note that macros can also be refered to without the braces if desired. Combining this feature with the use of the autocompletion from the VSCode extension provides excellent efficiency when writing descriptions like this.
+\begin{small}
+\begin{verbatim}
+    
+    `@Tufts Tufts University,
+    Department of Computer Science
+    `@URI University of Rhode Island,
+    Department of Computer Science
+    
+    @Contributor Polina Shpilker
+    @Contributor-Association `@Tufts
+    @Contributor-Role First Author
+    @Contributor-Email polina.shpilker@tufts.edu
+    
+    @Contributor Lenore Cowen
+    @Contributor-Association `@Tufts
+    @Contributor-Role Co-Author
+    @Contributor-Email cowen@cs.tufts.edu
+    
+    @Contributor Noah Daniels
+    @Contributor-Association `@URI
+    @Contributor-Role Corresponding Author
+    @Contributor-Email noah_daniels@uri.edu
+    
+\end{verbatim}
+\end{small}
+
+On side note, say that this particular paper had another contributor who's role was not immediately made aware to us. In this case, MEDFORD has a feature for what is essentially a placeholder statement called a template, perhaps similar to something like "pass" in Python. The difference is, attempting to validate a .mfd file with a template will give warnings to the user. Here is how it would be used:
+
+\begin{small}
+\begin{verbatim}
+    @Contributor Person1
+    @Contributor-Role [..]
+    @Contributor-Email N/A
+\end{verbatim}
+\end{small}
+
+Perhaps the next detail should be to add some keywords to the file. This can be done by simply using the 
+\texttt{@Keyword} tag. Adding keywords is very simple and of course it is possible to add as many as desired or necessary. In the case of this example, the paper being describe mentions some keywords below the abstract.
+\begin{small}
+\begin{verbatim}
+    @Keyword Metadata
+    @Keyword Research Accessibility
+    @Keyword Coral Reef Data
+    @Keyword FAIR Data
+\end{verbatim}
+\end{small}
+
+This is a good place to examine an interesting feature of the syntax here. Say that there might be a need for another keyword, but it is not known exactly what it will be just yet. MEDFORD provides a way to use an "incomplete value" to be replaced later. The parser will notice this and give a specific warning if you attempt to parse a file containing it, but it can be useful in certain situations.
+
+\begin{small}
+\begin{verbatim}
+    @Keyword Metadata
+    @Keyword Research Accessibility
+    @Keyword Coral Reef Data
+    @Keyword FAIR Data
+    @Keyword [..]
+\end{verbatim}
+\end{small}
+
+Notably, a clear example of where this feature might be useful lies within the use of templates. For example, perhaps a lab has a template .mfd file that they pass out to researchers. They can then simply replace all instances of [..] with the correct values, with the added bonus of having the parser enforce the fact that these must contain actual information.
+
+The paper description here is looking a lot more complete, but it is still missing some important things. One thing not discussed until this point is managing data references. In MEDFORD 1.0, there is support for using an mfd file to create a bag, in reference to BagIt. This is where data provenance tags come in.
+% BagIt needs to be introduced somewhere in the 
+\section{Data Provenance Tokens}
+
+Many times when dealing with describing metadata, there may have to be data, code, or some other resource that must be packaged along with it. For this purpose, MEDFORD has a set of tokens in order to described certain pieces of data referenced by the source material. 
+
+For example, one could describe an image or figure using the \texttt{@Data} family of tokens. Of course, using the correct version of the token depends on various factors, namely whether or not the data is a copy of the original source, the original source, or a link to an external holding of that data. This same principle holds true for the other two data provenance tokens, \texttt{@Paper} and \texttt{@Code}. It is worth mentioning that in this example, \texttt{@Paper\_Primary} was already used, which is an example of these types of tokens.
+
+In the case of the paper that is being described, an easy connection to make between this concept would be the actual parser for MEDFORD. It is referenced directly in the code, and is very integral to the paper itself as it is the primary focus. In this case, it would make sense to use the Code-related tokens to package this data with the paper in a Bag, which is talked about later on.
+
+\begin{small}
+\begin{verbatim}
+    @Code_Ref MEDFORD Parser
+    @Code_Ref-Type GitHub
+    @Code_Ref-URI https://github.com/TuftsBCB/medford
+\end{verbatim}
+\end{small}
+
+Of course, typically a .mfd file will many blocks similar to this. It all depends on the data deemed necessary to associate with the metadata descriptions. The most important distinction to make in any case is which token type is appropriate. In this case, all of the \texttt{\_Ref }tokens refer to data not packaged in the Bag, but held externally. \texttt{\_Copy} tokens would refer to copies of the resource that is packaged in the bag (and contained in its structure), and \texttt{\_Primary} tokens would refer to any resource that the current Bag is considered to be the authoritative source on.
+
+All of these things together would essentially constitute a complete .mfd file that is ready to be parsed. There is another interesting feature that should be highlighted, however. That feature is the ability to define new tokens as needed. Say that perhaps for whatever reason that you wanted to define a "book" major token, with the corresponding minor tokens of "Author", "ISBN10", and "Language". You would have to do this:
+\begin{verbatim}
+    @Book Meditations
+    @Book-Author Marcus Aurelius
+    @Book-ISBN10 1781391718
+    @Book-Langauge Latin
+\end{verbatim}
+
+It really boils down to just using the token as if it was already defined, which will then indicate to the parser that this is a user defined token that should not be validated. This feature is intended to greatly extend the range of usability for MEDFORD and its potential use cases. Consider perhaps a field researcher describing a particular species of coral and making a token to describe it.
+
+\section{Parsing the File}
+
+% Expansion needed, maybe even some screenshots that show inputting CL args?
+
+Once there is a finished file, parsing it will allow the creation of a Bag, as mentioned before. Bags are essentially a way to package files. Natively, the MEDFORD parser can read .mfd files and use them to produce a bag. In the future, MEDFORD may add support for additional methods of packaging
+Parsing a .mfd file is simple. The MEDFORD source is available publicly on GitHub, and it is also possible to install the parser by running the command 'pip install medford' if Python is present.
+
+Following this, running the parser essentially amounts to using a couple of command line statements to achieve the goal of either validating or compiling the .mfd file. Good practice is to properly validate the file before compiling it, as to make sure that no errors were made when the file was written. This can be done by using a command like the following one:
+\begin{verbatim}
+    medford.py -m BAGIT validate myfile.mfd
+\end{verbatim}
+
+As discussed earlier, a useful feature of the MEDFORD language is the ability to define custom tokens. In this case, the parser ignores the validation of these tokens, so it is important to ensure manually that everything that should be included (whether it be certain new minor tags or something else) be considered before moving forward.
+
+It is important to note that there exist other possible arguments that can be parsed, but those are determined on a case by case basis. They can be examined by looking at the usage documentation of the various options. After the file has been validated and decided to be syntactically correct, compiling it into a bag would use a very similar command:
+\begin{verbatim}
+    medford.py -m BAGIT compile myfile.mfd
+\end{verbatim}
+This will produce a Bag, as stated earlier. Of course, the output of the parser will potentially see expansion in the future, and it might support different output modes. 
+
+
+
+
+\section{Additional Resources}
+
+% Good inclusion for the user manual, minor edits maybe needed.
+
+In most cases, writing a MEDFORD file will require some additional elements not discussed in this paper. The best resource available is perhaps the very paper described here. Its description of the design principles behind the language may provide an expanded foundation for desdcribing your data. The MEDFORD paper can be found here:
+
+\begin{itemize}
+    \item \href{https://arxiv.org/abs/2204.09610}{https://arxiv.org/abs/2204.09610}
+\end{itemize}
+
+In addition to the MEDFORD paper itself, another important resource would be the specification. Within it, there is a detailed description of many important aspects of MEDFORD, and it is a resource that helps greatly when first learning how to write these kinds of files, especially if one makes use of the token descriptions. Every currently available token within MEDFORD can be found in the specification, along with a description of their use and any minor tokens. It can be found on Github, here:
+
+%Again, this link if cut off so I had to trim it down
+\begin{itemize}
+    \item \href{https://github.com/TuftsBCB/MEDFORD-Spec/blob/master/main.pdf}{https://github.com/TuftsBCB/MEDFORD-Spec}
+\end{itemize}
+
+A final important resource that will undoubtedly help when writing .mfd files is the example file repository on Github. Here, there are a mulitude of .mfd files that describe various papers and data. Viewing how others in the past have written description files would undoubtedly give a good idea on how the typical one is composed. Importantly, it is possible that at the time of reading some of these examples will be out of date. Use this resource with a degree of caution. The example repository:
+
+\begin{itemize}
+    \item \href{https://github.com/TuftsBCB/MEDFORD-examples}{https://github.com/TuftsBCB/MEDFORD-examples}
+\end{itemize}
+
+\section{Token Glossary}
+
+\textbf{@Contributor} - Used to indicate those who contributed to the project being described.
+Associated Minor Tokens:
+\begin{itemize}
+    \item \textbf{@Contributor-Email} - A required token that attributes an email to the respective contributor.
+    \item \textbf{@Contributor-Association} - A required token that attributes an organization or association to the respective contributor.
+\end{itemize}
+
+%% Unedited from original paper.
+\section{Author contributions statement}
+
+
+
+P.S., J.F., L.C., A.C. and N.D. came up with the initial design for MEDFORD; P.S., J.F., H.M., J-M.F, J.A., and H.P. tested and implemented initial MEDFORD examples; P.S., A.C. and N.D. worked on the back end medford parser; P.S., J.G., L.C, A.C., and N.D. helped write and review the manuscript. 
+\section{Acknowledgments}
+%The authors thank the anonymous reviewers for their valuable suggestions. 
+This work is supported in part by funds from the National Science Foundation under NSF grants  OAC-1939263. OAC-1939795 and HDR-BIO NSF-OAC \#1940233.
+
+\section{Competing interests}
+The authors declare NO Competing Interest.
+
+%USE THE BELOW OPTIONS IN CASE YOU NEED AUTHOR YEAR FORMAT.
+%\bibliographystyle{abbrvnat}
+%\bibliography{reference}
+
+%USE THE BELOW OPTIONS IN CASE YOU NEED NUMBERED FORMAT. UNCOMMENT THE ABOVE TWO LINES.
+\bibliographystyle{plain}
+\bibliography{reference}
+
+\end{document}
+
